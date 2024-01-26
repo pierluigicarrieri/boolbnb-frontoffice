@@ -18,14 +18,15 @@ function searchLocation() {
         <input type="text" id="locationInput" placeholder="Inserisci il nome della località">
         <button onclick="searchLocation()">Cerca</button>
     </div>
-  <div class="link"><a href="">Registrati</a><a href="">Accedi</a></div>
+  <div class="link"><a href="http://127.0.0.1:8000/register">Registrati</a><a href="http://127.0.0.1:8000/login">Accedi</a></div>
 </header>
   <Homepage/>
 </template>
 
 <style scoped>
 header{
-  height: 15vh;
+  padding:0  8%;
+  height: 13vh;
   background-color: rgb(192, 168, 168);
   width: 100%;
   display: flex;
@@ -33,7 +34,7 @@ header{
 }
 
 .logo{
-  height: 15vh;
+  height: 13vh;
 }
 .link{
   display: flex;
