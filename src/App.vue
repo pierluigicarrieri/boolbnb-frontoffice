@@ -1,31 +1,35 @@
 <script setup>
-import Homepage from './components/Homepage.vue'
+import { ref } from 'vue';
 
-function searchLocation() {
-
-    let locationName = document.getElementById("locationInput").value;
-
-  
-    let resultContainer = document.getElementById("resultContainer");
-    resultContainer.innerHTML = "<h3>Risultati della ricerca:</h3><p>" + locationName + "</p>";
-}
+const searchLocation = () => {
+  let locationName = document.getElementById("locationInput").value;
+  let resultContainer = document.getElementById("resultContainer");
+  resultContainer.innerHTML = "<h3>Risultati della ricerca:</h3><p>" + locationName + "</p>";
+};
 </script>
 
 <template>
-<header>
-  <div><img src="../public/Cattura.PNG" class="logo" alt=""></div>
-  <div class="search-container">
+  <div id="app">
+    <header>
+      <div><img src="../public/Cattura.PNG" class="logo" alt=""></div>
+      <div class="search-container">
         <input type="text" id="locationInput" placeholder="Inserisci il nome della località">
-        <button onclick="searchLocation()">Cerca</button>
-    </div>
-  <div class="link"><a href="http://127.0.0.1:8000/register">Registrati</a><a href="http://127.0.0.1:8000/login">Accedi</a></div>
-</header>
-  <Homepage/>
+        <button @click="searchLocation">Cerca</button>
+      </div>
+      <div class="link">
+        <a href="http://127.0.0.1:8000/register">Registrati</a>
+        <a href="http://127.0.0.1:8000/login">Accedi</a>
+      </div>
+    </header>
+    <router-view></router-view>
+  </div>
 </template>
 
+
+
 <style scoped>
-header{
-  padding:0  8%;
+header {
+  padding: 0 8%;
   height: 13vh;
   background-color: rgb(192, 168, 168);
   width: 100%;
@@ -33,40 +37,44 @@ header{
   justify-content: space-around;
 }
 
-.logo{
+.logo {
   height: 13vh;
 }
-.link{
+
+.link {
   display: flex;
   align-items: center;
-  justify-content: space-around; 
+  justify-content: space-around;
   width: 20%;
 }
-header>.link>a{
+
+header > .link > a {
   font-size: 2rem;
   text-decoration: none;
   margin: 0 20px;
   color: black;
 }
-header>.link>a:hover{
+
+header > .link > a:hover {
   font-size: 2.2rem;
   text-decoration: underline;
   color: blue;
 }
+
 .search-container {
-    display: flex;
-    padding: 2% 0;
+  display: flex;
+  padding: 2% 0;
 }
 
 input {
-    padding: 10px;
-    font-size: 16px;
-    width: 250px;
+  padding: 10px;
+  font-size: 16px;
+  width: 250px;
 }
 
 button {
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
 }
 </style>

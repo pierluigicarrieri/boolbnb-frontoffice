@@ -3,6 +3,7 @@ export default {
   data() {
     return {
       apartments: [],
+      apartmentId: null, // Aggiungi una nuova proprietà per l'ID dell'appartamento
     };
   },
   mounted() {
@@ -20,8 +21,20 @@ export default {
       .catch(error => {
         console.error('Error fetching apartments:', error);
       });
+
+    // Verifica se apartment è presente nei parametri della route prima di accedere all'ID
+    if (this.$route.params.apartment && this.$route.params.apartment.id) {
+      this.apartmentId = this.$route.params.apartment.id;
+      this.fetchApartmentDetails(this.apartmentId);
+    }
   },
   methods: {
+    // Aggiungi la tua implementazione per fetchApartmentDetails
+    fetchApartmentDetails(apartmentId) {
+      // Esegui una chiamata API per ottenere i dettagli dell'appartamento
+      // (Sostituisci questo con la tua logica effettiva)
+      // Assegna i dettagli dell'appartamento alla tua proprietà
+    },
     getRandomApartments(allApartments, count) {
       const shuffled = allApartments.slice(0).sort(() => 0.5 - Math.random());
       return shuffled.slice(0, count);
@@ -34,7 +47,7 @@ export default {
 </script>
 
 <template>
-  <div class="container">
+  <div class="my-container">
   <div>
     <h1 class="text-center my-4">I PIÙ VICINI A TE</h1>
     <div class="card-container justify-content-center">
@@ -64,6 +77,9 @@ export default {
 
 <style scoped>
 
+.my-container{
+  padding:0 10%;
+}
 .card-container {
   display: flex;
   flex-wrap: wrap;
