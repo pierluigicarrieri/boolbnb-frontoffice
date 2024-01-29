@@ -34,24 +34,32 @@ methods: {
 </script>
 
 <template>
-  <div class="container">
-    <h1 class="text-center my-4">Dettagli dell'Appartamento</h1>
-    <div class="card">
-      <img :src="apartment.photo" class="card-img-top apartment-photo" alt="Apartment Photo">
+  <div class="container mt-5">
+    <div class="my-card">
+      <div><img :src="apartment.photo" class="card-img-top apartment-photo" alt="Apartment Photo"></div>
       <div class="card-body">
-        <h5 class="card-title text-center">{{ apartment.name }}</h5>
-        <div class="info-container">
-          <p class="card-text">Stanze: {{ apartment.rooms }}</p>
-          <p class="card-text">Letti: {{ apartment.beds }}</p>
-          <p class="card-text">Bagni: {{ apartment.bathrooms }}</p>
-          <p class="card-text">Metri Quadri: {{ apartment.mq }}</p>
+        <h5 class="card-title text-center fs-1 my-4">{{ apartment.name }}</h5>
+        <div class="info-container ms-3">
+          <p class="card-text fs-2">Stanze: {{ apartment.rooms }}</p>
+          <p class="card-text fs-2">Letti: {{ apartment.beds }}</p>
+          <p class="card-text fs-2">Bagni: {{ apartment.bathrooms }}</p>
+          <p class="card-text fs-2">Metri Quadri: {{ apartment.mq }}</p>
         </div>
-        <p class="card-text">Address: {{ apartment.address }}</p>
+        <p class="card-text fs-2 ms-3 mt-2">Address: {{ apartment.address }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-  /* Stili specifici per la pagina dettaglio appartamento */
+ .apartment-photo{
+  width: 100%;
+  height: 30rem;
+ }
+ .my-card{
+  display: flex;
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 20px;
+ }
 </style>
