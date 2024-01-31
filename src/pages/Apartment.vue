@@ -42,12 +42,26 @@ methods: {
     },
 
     sendMessage() {
-      // Implementa la logica per inviare il messaggio, puoi utilizzare $axios o un'altra API
-      // Dopo l'invio, puoi anche reimpostare lo stato del form e pulire i campi
-      console.log('Sending message:', this.messageFormData);
+  // Implementa la logica per inviare il messaggio al backend Laravel
+  this.$axios.post('/message', {
+    apartment_id: this.apartment.id,
+    first_name: this.messageFormData.first_name,
+    last_name: this.messageFormData.last_name,
+    email: this.messageFormData.email,
+    text: this.messageFormData.text,
+  })
+    .then(response => {
+      console.log('Messaggio inviato con successo:', response.data);
+      // Puoi aggiungere ulteriori logiche o feedback per l'utente
+    })
+    .catch(error => {
+      console.error('Errore durante l\'invio del messaggio:', error);
+      // Gestisci gli errori e fornisce un feedback all'utente se necessario
+    })
+    .finally(() => {
       this.showSendMessageForm = false;
-      // Puoi anche reimpostare i campi del form a questo punto
-    },
+    });
+},
     closeSendMessageForm() {
       this.showSendMessageForm = false;
     },
@@ -73,107 +87,138 @@ methods: {
         </div>
       </div>
     </div>
-      
-      <div v-if="showSendMessageForm" class="overlay">
-          <div class="message-form">
-            <form @submit.prevent="sendMessage">
-              <!-- Campi del form di messaggistica -->
-              <div class="my-data">
-                <div class="message-input"><label for="name">Nome:</label>
-             <input v-model="messageFormData.name" type="text" id="name" required></div>
 
-             <div class="message-input"><label for="email">Email:</label>
-              <input v-model="messageFormData.email"  class="email" type="email" id="email" required></div></div>
-
-              
-              <div class="message-input text">
-                <label for="message" class="message-label">Messaggio:</label>
-              <textarea v-model="messageFormData.message" id="message" required></textarea></div>
-
-              <div class="button-container">
-                <button type="submit" class="btn btn-primary">Invia Messaggio</button>
-                <button @click="closeSendMessageForm" class="btn btn-secondary">Annulla</button>
+    <div v-if="showSendMessageForm" class="overlay">
+      <div class="message-form">
+        <form @submit.prevent="sendMessage">
+          <div class="message-input">
+            <div class="name-container">
+              <div class="name-input">
+                <label for="first_name">Nome:</label>
+                <input v-model="messageFormData.first_name" type="text" id="first_name" required>
               </div>
-            </form>
+              <div class="name-input">
+                <label for="last_name">Cognome:</label>
+                <input v-model="messageFormData.last_name" type="text" id="last_name" required>
+              </div>
+            </div>
           </div>
+
+          <div class="message-input email email-container">
+      <label for="email">Email:</label>
+      <input v-model="messageFormData.email" class="email" type="email" id="email" required>
     </div>
-  </div>
+
+
+            <div class="message-input text">
+              <label for="message" class="message-label">Messaggio:</label>
+              <textarea v-model="messageFormData.text" id="message" required></textarea>
+            </div>
+
+            <div class="button-container">
+              <button type="submit" class="btn btn-primary">Invia Messaggio</button>
+              <button @click="closeSendMessageForm" class="btn btn-secondary">Annulla</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
 </template>
 
 <style scoped>
- .apartment-photo{
-  width: 100%;
-  height: 30rem;
- }
- .my-card{
-  display: flex;
-  border: 1px solid grey;
-  border-radius: 10px;
-  padding: 20px;
- }
- .overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Colore scuro con opacità */
-  display: flex;
-  justify-content: center;
-  align-items: center;
- }
+  .apartment-photo {
+    width: 100%;
+    height: 30rem;
+  }
+  .my-card {
+    display: flex;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Colore scuro con opacità */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
- .message-input{
-  width: 100%;
-  padding: 10px 0;
- }
- .my-data{
-  display: flex;
-  justify-content: space-around;
-  padding: 10px 30px;
- }
- .message-input>.email{
-  width: 300px;
- }
- label{
-  padding: 0 20px;
- }
- .message-label{
-  width: 100%;
-  max-width: 700px;
-  padding-bottom: 15px;
- }
- .message-input>input{
-  padding-left: 10px;
- }
+  .name-container {
+    display: flex;
+    justify-content: space-between;
+  }
 
-.text{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: left;
-  width: 100%;
-  padding: 0 20px 20px 20px;
- }
- .message-input>textarea{
-  width: 100%;
-  max-width: 700px;
-  height: 100px;
- }
+  .name-input {
+    width: 300px; 
+  }
 
- /* Stili per il form */
- .message-form {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  width: 50%;
- }
+  .name-container {
+    display: flex;
+    justify-content: space-around; /* Modificato space-between a space-around */
+  }
 
- /* Stili per il pulsante Annulla */
- .button-container {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
- }
+  .email-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .message-input.email input {
+    width: 100%;
+    max-width: 400px;
+    
+  }
+  .message-input input:not(.email):not(textarea) {
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+  }
+
+
+
+  .message-input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  .message-input label {
+    margin-bottom: 5px;
+  }
+
+  .message-input input,
+  .message-input textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .message-input.text textarea {
+    height: 100px;
+  }
+
+  input{
+    height: 35px;
+    padding-left: 10px;
+  }
+  /* Stili per il form */
+  .message-form {
+    background: white;
+    padding: 20px; /* Un solo padding per il container principale */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 50%;
+  }
+
+  /* Stili per il pulsante Annulla */
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
 </style>

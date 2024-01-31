@@ -1,12 +1,51 @@
 <script setup>
 import { ref } from 'vue';
+import axios from 'axios';
+
+const address = ref('');
+const locations = ref([]);
+let timer;
+const latitude = ref('');
+const longitude = ref('');
 
 const searchLocation = () => {
-  let locationName = document.getElementById("locationInput").value;
-  let resultContainer = document.getElementById("resultContainer");
-  resultContainer.innerHTML = "<h3>Risultati della ricerca:</h3><p>" + locationName + "</p>";
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    callApi();
+  }, 100);
+};
+
+const callApi = () => {
+  if (address.value.length >= 5) {
+    axios.post('/api/geodata', {
+        query: address.value,
+    })
+      .then(response => {
+        createLocationsList(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching geodata:', error);
+        // Gestisci gli errori della chiamata TomTom qui
+        if (error.response) {
+          console.error('TomTom API Erro999r:', error.response.data);
+        }
+      });
+  }
+};
+
+const createLocationsList = (locationsData) => {
+  locations.value = locationsData;
+};
+
+const selectLocation = (location) => {
+  latitude.value = location.position.lat;
+  longitude.value = location.position.lon;
+  address.value = location.address;
+  locations.value = [];
 };
 </script>
+
+
 
 <template>
   <div id="app">
