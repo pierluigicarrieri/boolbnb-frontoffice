@@ -1,0 +1,8 @@
+.footer
+
+.rendere il logo un link alla home
+
+.far funzionare la barra di ricerca
+
+.aggiungere altri appartamenti consigliati nella pagina dei dettagli del singolo appartamento
+
