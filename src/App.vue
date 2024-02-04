@@ -50,15 +50,20 @@ const selectLocation = (location) => {
 <template>
   <div id="app">
     <header>
-      <div><img src="../public/Cattura.PNG" class="logo" alt=""></div>
-      <div class="search-container">
-        <input type="text" id="locationInput" placeholder="Inserisci il nome della località">
-        <button @click="searchLocation">Cerca</button>
-      </div>
-      <div class="link">
-        <a href="http://127.0.0.1:8000/register">Registrati</a>
-        <a href="http://127.0.0.1:8000/login">Accedi</a>
-      </div>
+        <div class="logo">
+            <img src="../../public/Cattura.PNG" class="logo" alt="Logo">
+        </div>
+        <div class="search-container">
+            <input type="text" id="locationInput" placeholder="Inserire località">
+            <button @click="searchLocation">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              Cerca
+            </button>
+        </div>
+        <div class="link">
+            <a href="http://127.0.0.1:8000/register">Registrati</a>
+            <a href="http://127.0.0.1:8000/login">Accedi</a>
+        </div>
     </header>
     <router-view></router-view>
   </div>
@@ -66,54 +71,72 @@ const selectLocation = (location) => {
 
 
 
-<style scoped>
+<style lang="scss" scoped>
 header {
-  padding: 0 8%;
-  height: 13vh;
-  background-color: rgb(192, 168, 168);
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-}
+    width: 100%;
+    height: 10vh;
+    background-color: #002d2b;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 
-.logo {
-  height: 13vh;
-}
+    .logo {
+      width: 10%;
+      display: flex;
+      justify-content: center;
+      
+      img{
+        height: 10vh;
+        width: auto;
+      }
+    }
 
-.link {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 20%;
-}
+    .search-container {
+        width: 30%;
+        height: 5vh;
+        padding: 0 2%;
+        display: flex;
+        border: 1px solid white;
+        border-radius: 20px;
 
-header > .link > a {
-  font-size: 2rem;
-  text-decoration: none;
-  margin: 0 20px;
-  color: black;
-}
+        input {
+          width: 80%;
+            border: 0;
+            font-size: 16px;
+            background-color: #002d2b;
 
-header > .link > a:hover {
-  font-size: 2.2rem;
-  text-decoration: underline;
-  color: blue;
-}
+            &:focus {
+              border: 0;
+              outline: none;
+              color: white;
+            }
+        }
 
-.search-container {
-  display: flex;
-  padding: 2% 0;
-}
+        button {
+          width: 20%;
+          border: 0;
+          font-size: 16px;
+          background-color: #002d2b;
+          color: white;
+          cursor: pointer;
+        }
+    }
 
-input {
-  padding: 10px;
-  font-size: 16px;
-  width: 250px;
-}
+    .link {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: 10%;
+        font-size: 1rem;
 
-button {
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
+        a {
+            text-decoration: none;
+            color: #00d1c9;
+
+            &:hover {
+                color: #00847e;
+            }
+        }
+    }
 }
 </style>

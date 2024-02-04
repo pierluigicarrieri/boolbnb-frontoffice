@@ -28,6 +28,11 @@ export default {
       this.fetchApartmentDetails(this.apartmentId);
     }
   },
+  computed: {
+    filteredApartments() {
+      return this.apartments.filter(apartment => apartment.visible !== 0);
+    },
+  },
   methods: {
     // Aggiungi la tua implementazione per fetchApartmentDetails
     fetchApartmentDetails(apartmentId) {
@@ -48,10 +53,10 @@ export default {
 
 <template>
   <div class="my-container">
-  <div>
-    <h1 class="text-center my-4">I PIÙ VICINI A TE</h1>
-    <div class="card-container justify-content-center">
-      <div v-for="apartment in apartments" :key="apartment.id" class="card">
+    <div>
+      <h1 class="text-center my-4">I PIÙ VICINI A TE</h1>
+      <div class="card-container justify-content-center">
+        <div v-for="apartment in filteredApartments" :key="apartment.id" class="card">
         <img :src="apartment.photo" class="card-img-top apartment-photo" alt="Apartment Photo">
         <div class="card-body">
           <h5 class="card-title text-center">{{ apartment.name }}</h5>
@@ -67,12 +72,11 @@ export default {
               <button type="button" class="btn btn-primary">Vedi di Piu</button>
             </router-link>
           </div>
-          
         </div>
       </div>
     </div>
   </div>
-</div>
+  </div>
 </template>
 
 <style scoped>
